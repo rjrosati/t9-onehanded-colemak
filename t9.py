@@ -352,19 +352,19 @@ while True:
 
     key = getkey()
 
-    if key == "Q":
-        print("")
-        break
+    #if key == "Q":
+    #    print("")
+    #    break
 
     # for using a-z and period instead of numbers
-    if engine_enabled:
-        try:
-            if not key.isdecimal():
-                key = str(T9Engine.T9[key.lower()])
-        except KeyError:
-            pass
+    #if engine_enabled:
+    #    try:
+    #        if not key.lower() in T9Engine.T9.keys():
+    #            key = str(T9Engine.T9[key.lower()])
+    #    except KeyError:
+    #        pass
 
-    if key in "123456789":
+    if key in T9Engine.T9.keys():
         if not engine_enabled:
             line += key
             continue
@@ -387,7 +387,7 @@ while True:
                 t9_engine.new_completion()
         try:
             # feed the engine this digit
-            t9_engine.add_digit(int(key))
+            t9_engine.add_digit(key)
         except WordNotFoundException:
             word_not_found = True
             pass
@@ -422,6 +422,7 @@ while True:
             except WordNotFoundException:
                 word_not_found = True
                 pass
+    #elif key == "0" or key == keys.SPACE:
     elif key == "0" or key == keys.SPACE:
         if not engine_enabled:
             line += key
